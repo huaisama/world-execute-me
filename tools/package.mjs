@@ -20,6 +20,7 @@
    =========================================================================== */
 import fs from 'node:fs';
 import path from 'node:path';
+import os from 'node:os';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -27,7 +28,9 @@ const DIST = path.join(ROOT, 'dist');
 const SONG = path.join(ROOT, 'audio', 'world-execute-me.mp3');
 
 /* ---- what goes in ------------------------------------------------------- */
-const ROOT_FILES = ['index.html', 'README.md', 'LICENSE', 'CREDITS.md', '.gitignore'];
+const ROOT_FILES = ['index.html', 'README.md', 'LICENSE', 'CREDITS.md', '.gitignore',
+                    '.gitattributes',
+                    'start.cmd', 'start.sh'];
 const ENTRY = 'index.html';
 
 /* THE ASSET LIST IS DERIVED FROM THE PAGE, NOT GUESSED.
@@ -81,7 +84,42 @@ const EXCLUDED = [
 ];
 
 /* ---- staging ------------------------------------------------------------ */
-function clean(dir) { fs.rmSync(dir, { recursive: true, force: true }); fs.mkdirSync(dir, { recursive: true }); }
+/* CLEANING MUST NOT EAT THE GIT REPOSITORY.
+   dist/ used to be wiped outright, which deleted dist/world-execute-me/.git
+   along with everything else — so every repackage silently destroyed the local
+   history of the release tree, and the next push failed with "fatal: not a git
+   repository" after the commit had appeared to work.
+
+   The repository is moved OUTSIDE dist/ for the duration. Stashing it anywhere
+   inside dist/ does not work — that is precisely the tree being deleted, so the
+   copy gets removed along with the original. */
+const GITSTASH = path.join(os.tmpdir(), 'wem-gitstash');
+
+function clean(dir) {
+  fs.rmSync(GITSTASH, { recursive: true, force: true });
+  const saved = [];
+  if (fs.existsSync(dir)) {
+    for (const sub of fs.readdirSync(dir)) {
+      const g = path.join(dir, sub, '.git');
+      if (fs.existsSync(g)) {
+        const dest = path.join(GITSTASH, sub);
+        fs.mkdirSync(path.dirname(dest), { recursive: true });
+        fs.renameSync(g, dest);
+        saved.push([dest, g, sub]);
+      }
+    }
+  }
+  fs.rmSync(dir, { recursive: true, force: true });
+  fs.mkdirSync(dir, { recursive: true });
+  for (const [dest, g] of saved) {
+    fs.mkdirSync(path.dirname(g), { recursive: true });
+    fs.renameSync(dest, g);
+  }
+  fs.rmSync(GITSTASH, { recursive: true, force: true });
+  if (saved.length) {
+    console.log('  kept git repo(s): ' + saved.map(s => s[2]).join(', '));
+  }
+}
 function put(dir, rel) {
   const src = path.join(ROOT, rel), dst = path.join(dir, rel);
   if (!fs.existsSync(src)) { console.log('   MISSING ' + rel); return 0; }
@@ -105,6 +143,14 @@ function stage(into, withAudio) {
   const geo = path.join(ROOT, '_pv', 'geo');
   if (fs.existsSync(geo)) {
     for (const f of fs.readdirSync(geo)) add(path.join('_pv', 'geo', f));
+  }
+
+  /* the README gallery. These are the first thing anyone sees on the project
+     page, so they belong in the repo even though they are the largest files in
+     it — a visual piece with no images gets scrolled past. */
+  const docs = path.join(ROOT, 'docs');
+  if (fs.existsSync(docs)) {
+    for (const f of fs.readdirSync(docs)) add(path.join('docs', f));
   }
 
   /* audio slot */

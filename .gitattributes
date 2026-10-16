@@ -1,0 +1,22 @@
+# Line endings, pinned per file type.
+#
+# Without this, git's autocrlf turns start.sh into a CRLF file on checkout and
+# macOS / Linux refuse to run it:
+#     bash: ./start.sh: /usr/bin/env: bad interpreter: No such file or directory
+# A shell script must keep LF. A .cmd must keep CRLF or cmd.exe can mis-parse
+# it. Text is normalised to LF in the repository and converted only where the
+# platform actually needs it.
+
+* text=auto eol=lf
+
+*.sh    text eol=lf
+*.cmd   text eol=crlf
+*.bat   text eol=crlf
+*.ps1   text eol=crlf
+
+# never touch these
+*.png   binary
+*.gif   binary
+*.jpg   binary
+*.mp3   binary
+*.wav   binary

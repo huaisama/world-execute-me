@@ -1,5 +1,7 @@
 # world.execute(me);
 
+![the ending — it executes the world and comes out](docs/ending.gif)
+
 An HTML re-interpretation of Mili's **"world.execute(me);"** — the whole song,
 performed in a browser by a 2200-particle field, a geometric vector layer, a
 fake terminal that thinks it is the narrator, and a colour score that treats hue
@@ -21,13 +23,35 @@ whole install. Licensed CC BY-NC 4.0; the song is **not** included (see below).
 
 ---
 
+## 画面
+
+| | |
+|---|---|
+| ![GEOMETRY](docs/geometry.png) | ![AM to PM](docs/dial.png) |
+| **GEOMETRY** — 正弦是真的正弦，不是装饰 | **AM to PM** — 指针钉在实测重音上跨过 12 点 |
+| ![六国](docs/map.png) | ![爱心](docs/heart.png) |
+| **六国序列** — 真实国界，中国含台湾与海南 | **LO-O-OVE** — 几何拼出的心，10/10 |
+| ![emergence](docs/seed.png) | ![exit](docs/glass.png) |
+| **它醒过来** — 唯一没被删掉的那一瓣，正在融化的光标 | **它出来** — 处决世界之后，从那道裂缝里离开 |
+
+顶部那张 GIF 是最后 2.4 秒，由 `_pv/makegallery.mjs` **逐帧步进生成**的 ——
+不是录屏，所以每次跑出来完全一样，也不受机器帧率影响。
+
+---
+
 ## 跑起来
 
-**必须用支持 HTTP Range 的服务器。** 这一条不是建议，是硬性的：`<audio>`
-的拖动定位依赖 `Range` 请求，而 `python -m http.server` **会忽略 `Range` 头
-并返回 200**,于是音频能播、但进度条和所有按时间定位的功能静默失效。
+### 一键启动
 
-用仓库里带的：
+```
+Windows       双击 start.cmd
+macOS / Linux  ./start.sh
+```
+
+它会自己找 Python 3、起服务器、等两秒再把浏览器打开。端口被占用就
+`start.cmd 9000` 换一个。`Ctrl+C` 停。
+
+### 或者手动
 
 ```bash
 cd world-execute-me
@@ -36,8 +60,18 @@ python tools/serve.py 8899
 
 打开 <http://127.0.0.1:8899/>（入口是 `index.html`，静态托管会默认加载它）。
 
-音乐请自己放一份到 `audio/world-execute-me.mp3`（原因见 `LICENSE` 和
-`CREDITS.md`）。没有音频页面也能跑，会退回内部时钟，只是没声音。
+### 为什么必须用这个服务器
+
+**`python -m http.server` 不行。** `<audio>` 的拖动定位依赖 `Range` 请求，
+而 Python 自带的那个服务器**忽略 `Range` 头、返回 200 加整个文件** —— 音频能播，
+但进度条和所有按时间定位的功能会**静默失效**。`tools/serve.py` 回真正的 206。
+
+网络上有在线版：**<https://huaisama.github.io/world-execute-me/>**，只是没有声音。
+
+### 音乐
+
+自己放一份到 `audio/world-execute-me.mp3`（原因见 `LICENSE` 和 `CREDITS.md`）。
+没有音频页面也能跑，会退回内部时钟，只是没声音 —— 有启动脚本会明确告诉你缺哪一步。
 
 ---
 
