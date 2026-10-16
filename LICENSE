@@ -1,0 +1,52 @@
+world.execute(me); — an HTML re-interpretation
+Copyright (c) 2026  (see CREDITS.md for the full list of contributors)
+
+This work is licensed under the Creative Commons
+Attribution-NonCommercial 4.0 International License.
+
+    SPDX-License-Identifier: CC-BY-NC-4.0
+
+You are free to:
+
+    Share  — copy and redistribute the material in any medium or format
+    Adapt  — remix, transform, and build upon the material
+
+Under the following terms:
+
+    Attribution   — You must give appropriate credit, provide a link to the
+                    licence, and indicate if changes were made. You may do so
+                    in any reasonable manner, but not in any way that suggests
+                    the licensor endorses you or your use.
+
+    NonCommercial — You may not use the material for commercial purposes.
+
+    No additional restrictions — You may not apply legal terms or
+                    technological measures that legally restrict others from
+                    doing anything the licence permits.
+
+Full legal code:
+    https://creativecommons.org/licenses/by-nc/4.0/legalcode
+
+Human-readable summary:
+    https://creativecommons.org/licenses/by-nc/4.0/
+
+-------------------------------------------------------------------------------
+WHAT THIS LICENCE DOES *NOT* COVER
+-------------------------------------------------------------------------------
+
+The licence above covers the code and the original artwork in this repository.
+It does NOT cover:
+
+  * "world.execute(me);" — the song by Mili. All rights in the recording and
+    the composition remain with Mili and their label. This project is an
+    unauthorised, non-commercial fan re-interpretation; it ships without the
+    audio, and nothing here grants you any right to the music.
+
+  * The lyrics, as quoted in assets/pv-data.js. They appear for the purpose of
+    timing the visuals to the vocal line. All rights remain with the author.
+
+  * Country outlines in assets/pv-geo.js, derived from Natural Earth, which is
+    in the public domain (https://www.naturalearthdata.com/about/terms-of-use/).
+
+If you are a rights holder and would like something here changed or removed,
+please open an issue and it will be dealt with promptly.

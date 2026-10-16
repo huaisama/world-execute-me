@@ -1,0 +1,41 @@
+# the song — you must supply your own copy (see CREDITS.md)
+audio/*.mp3
+audio/*.wav
+*.mp3
+*.wav
+*.flac
+*.m4a
+
+# decoded / generated analysis data
+_pv/*.wav
+_pv/*.npy
+_pv/*.mp4
+_pv/*.png
+_pv/cmp/
+_pv/ne/
+_pv/full.wav
+_pv/st.wav
+
+# development screenshots and captures
+_shot/
+
+# the third-party reference project, not part of this work
+world-execute-me-main/
+
+# build output
+dist/
+*.obj
+*.exe
+*.pdb
+*.ilk
+
+# editor / OS noise
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# scratch
+_dbg*.mjs
+新建 文本文档.txt

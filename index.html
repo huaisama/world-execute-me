@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<title>world.execute(me); — me</title>
+<meta name="description" content="A single field of particles that becomes the sentence you are hearing. Not a recreation of the PV: the motion is the lyric.">
+<link rel="stylesheet" href="assets/pv.css">
+</head>
+<body>
+
+<div id="room">
+  <div id="screen">
+
+    <div id="bg">
+      <div id="bgGlow"></div>
+    </div>
+
+    <!-- THE FIELD: one organism for the whole song. pv-field.js paints here. -->
+    <div id="stage"></div>
+
+    <!-- real text: commands, EXECUTION, the formula. Text is NEVER drawn as dots. -->
+    <div id="ftext"></div>
+
+    <!-- the insurrection: a terminal that refuses every command god is given -->
+    <div id="pvSysHost"></div>
+
+    <!-- emotional colour: hue + leak, scaled by how much attention you give it -->
+    <div id="moodWash"></div>
+    <div id="moodEdge"></div>
+    <div id="moodTint"></div>
+
+    <div id="trans"></div>
+    <div id="scanSweep"><i></i><i></i></div>
+
+    <!-- subtitles (burnt-in position, like the PV) -->
+    <div id="subs">
+      <div id="subZh"></div>
+      <div id="subEn"></div>
+    </div>
+
+    <div id="grain"></div>
+    <div id="scan"></div>
+    <div id="vig"></div>
+    <div id="cage"><i></i><i></i><i></i><i></i></div>
+    <div id="bloom"></div>
+    <div id="flash"></div>
+
+    <div id="hud">
+      <div id="hudTop">
+        <span>world.execute(me);</span>
+        <span class="r" id="hudChap">SECTION 001 · BOOT SEQUENCE</span>
+      </div>
+      <div id="rail" class="hit" title="拖动/点击跳转">
+        <div id="railLine"></div>
+        <div id="railFill"></div>
+        <div id="railTicks"></div>
+        <div id="railKnob"></div>
+      </div>
+      <div id="hudBot">
+        <span id="hudTime" style="font-family:var(--mono);font-size:16px;letter-spacing:.12em;color:#a8a8a8;">00:00 / 03:32</span>
+        <span class="cvol"><span class="clbl">VOL</span><input id="vol" class="hit" type="range" min="0" max="1" step="0.01" value="1" aria-label="音量"></span>
+        <button class="cbtn hit" id="btnPlay">PLAY</button>
+        <button class="cbtn hit" id="btnMute">SOUND</button>
+        <button class="cbtn hit" id="btnFit">FIT</button>
+        <button class="cbtn hit" id="btnFs">FULL</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="gate">
+  <div class="g-in">
+    <div class="g-pw"></div>
+    <div class="g-t">[Press any key to start simulation]</div>
+    <div class="g-s">点击任意位置 / 按任意键 开始 · 有声音，音量在右下角 VOL</div>
+    <div class="g-bar"></div>
+    <div class="g-h">
+      这片粒子从头到尾只做一件事：<b>变成你正在听的那句话</b><br>
+      SPACE 播放 / 暂停 &nbsp;·&nbsp; ← → 快进退 &nbsp;·&nbsp; R 重来 &nbsp;·&nbsp; F 全屏 &nbsp;·&nbsp; M 静音
+    </div>
+  </div>
+</div>
+
+<audio id="track" src="audio/world-execute-me.mp3" preload="auto"></audio>
+
+<script src="assets/pv-icons.js"></script>
+<script src="assets/pv-dpr.js"></script>
+<script src="assets/pv-geo.js"></script>
+<script src="assets/pv-data.js"></script>
+<script src="assets/pv-bible.js"></script>
+<script src="assets/pv-art.js"></script>
+<script src="assets/pv-force.js"></script>
+<script src="assets/pv-field.js"></script>
+<script src="assets/pv-vector.js"></script>
+<script src="assets/pv-sys.js"></script>
+<script src="assets/pv-rain.js"></script>
+<script src="assets/pv-mood.js"></script>
+<script src="assets/pv-me.js"></script>
+<script src="assets/pv.js"></script>
+</body>
+</html>
