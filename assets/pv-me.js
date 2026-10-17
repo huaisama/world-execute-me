@@ -22,6 +22,10 @@
 
   var lastMove = 0, idleStage = 0, blinkAt = 1400, blinkT = -1, clickN = 0, clickAt = 0;
   var affection = 45, shown = {}, pausedAt = -1, now = 0;
+  /* when the page is opened with ?aff=NN the value is PINNED: a recording
+     cannot pay attention, so the decay below would drain the colour to zero
+     within twenty seconds and the whole film would come out grey. */
+  var affPinned = false;
   var hot = 0;                       // impact envelope from the music
   var reduce = false, still = false;
 
@@ -446,10 +450,16 @@
     blinkAt -= dt * 1000;
     if (blinkAt <= 0) { blink(); blinkAt = 2600 + Math.random() * 5200; }
 
-    /* affection bookkeeping — attention literally colours the film */
-    var idle = (now - lastMove) / 1000;
-    if (idle < 3) affection = Math.min(100, affection + dt * 3.2);
-    else if (idle > 6) affection = Math.max(0, affection - dt * 2.2);
+    /* affection bookkeeping — attention literally colours the film.
+       Skipped entirely when ?aff= pinned it: the pointer has to MOVE to keep
+       affection up, and a screen recorder never moves the pointer, so an
+       unpinned recording decays to 0 within ~20s and every colour in the film
+       is multiplied by 0.10 for the remaining three minutes. */
+    if (!affPinned) {
+      var idle = (now - lastMove) / 1000;
+      if (idle < 3) affection = Math.min(100, affection + dt * 3.2);
+      else if (idle > 6) affection = Math.max(0, affection - dt * 2.2);
+    }
 
     var lit = Math.round(affection / 100 * 12);
     for (var i = 0; i < meterFill.length; i++) meterFill[i].className = i < lit ? 'on' : '';
@@ -516,7 +526,10 @@
   function init(opts) {
     reduce = !!(opts && opts.reduce);
     still = !!(opts && opts.still);
-    if (opts && opts.aff != null) affection = Math.max(0, Math.min(100, +opts.aff));
+    if (opts && opts.aff != null) {
+      affection = Math.max(0, Math.min(100, +opts.aff));
+      affPinned = true;   /* hold it: see the note in frame() */
+    }
     build();
     root.addEventListener('mousemove', function (e) {
       var r = root.document.getElementById('screen').getBoundingClientRect();
