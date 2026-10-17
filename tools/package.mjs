@@ -93,7 +93,11 @@ const EXCLUDED = [
    The repository is moved OUTSIDE dist/ for the duration. Stashing it anywhere
    inside dist/ does not work — that is precisely the tree being deleted, so the
    copy gets removed along with the original. */
-const GITSTASH = path.join(os.tmpdir(), 'wem-gitstash');
+/* The stash must live on the SAME VOLUME as dist/. os.tmpdir() is on C: while
+   this project is on D:, and fs.renameSync across drives fails with EXDEV —
+   'cross-device link not permitted'. Keeping it beside dist/ is enough: it only
+   has to be outside the tree being deleted. */
+const GITSTASH = path.join(ROOT, '.gitstash');
 
 function clean(dir) {
   fs.rmSync(GITSTASH, { recursive: true, force: true });

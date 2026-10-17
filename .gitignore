@@ -39,3 +39,6 @@ desktop.ini
 # scratch
 _dbg*.mjs
 新建 文本文档.txt
+
+# temporary git stash used by tools/package.mjs
+.gitstash/

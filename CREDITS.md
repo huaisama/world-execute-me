@@ -30,6 +30,34 @@ original work, written for this project:
 
 Licensed CC BY-NC 4.0 — see `LICENSE`.
 
+## 特别鸣谢 / Special thanks
+
+**DeepSeek** — AI collaborator on this project.
+本项目的代码与 AI（DeepSeek）协作完成。
+
+The split was roughly: the human supplied the intent, the taste, and the
+judgement of what was wrong; DeepSeek wrote the implementation, built the
+measurement tooling, and did the debugging.
+
+That second half is less trivial than it sounds. Most of the work here was not
+writing effects, it was proving they were actually happening — whether every
+beat moved, whether the heart really filled to ten, whether the dial's hand
+landed on the sung accent. Several bugs were completely invisible on screen and
+only appeared when measured:
+
+- a particle spring that overshot by 57% and crossed its target 34 times
+- a vector mode written into the wrong object, and therefore never drawn
+- a force parameter that no code in the project ever read
+- a heart whose targets were all NaN
+- a country outline with Taiwan missing
+
+None of those were caught by looking at the screen.
+
+It also got things wrong with great confidence, which is worth recording rather
+than smoothing over. The honest shape of the credit is this: the judgements in
+this piece — what it should say, what it should feel like, what counts as wrong
+— are human. The implementation and the verification are machine.
+
 ## Third-party data
 
 **Natural Earth** — country outlines used for the six-nation sequence
